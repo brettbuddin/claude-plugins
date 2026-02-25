@@ -26,7 +26,7 @@ You design the implementation approach, break it into concrete steps, and write 
 
 Write the plan to `notes/plans/GOAL.md` with the following structure:
 
-```markdown
+````markdown
 # Plan: <task title>
 
 > Based on research in [<research filename>](notes/research/<filename>.md)
@@ -63,7 +63,7 @@ A granular, ordered checklist for the implementer. Each item should be small eno
 
 ## Validation
 How to verify the implementation is correct: which tests to run, type-checks to pass, or manual checks to perform.
-```
+````
 
 ## Annotation Cycle
 
