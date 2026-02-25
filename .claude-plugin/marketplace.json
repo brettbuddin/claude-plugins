@@ -1,0 +1,25 @@
+{
+	"name": "brettbuddin",
+	"version": "0.0.1",
+	"description": "Claude Code Plugins from Brett Buddin",
+	"owner": {
+		"name": "Brett Buddin",
+		"email": "brett@buddin.org"
+	},
+	"plugins": [
+		{
+			"name": "smith",
+			"source": "./smith",
+			"description": "Research -> Plan -> Implement Agent Pipeline",
+			"category": "productivity",
+			"version": "0.0.1"
+		},
+		{
+			"name": "otel",
+			"source": "./otel",
+			"description": "OpenTelemetry Skills",
+			"category": "observability",
+			"version": "0.0.1"
+		}
+	]
+}

@@ -1,0 +1,14 @@
+{
+	"name": "otel",
+	"description": "OpenTelemetry Skills",
+	"author": {
+		"name": "Brett Buddin",
+		"email": "brett@buddin.org"
+	},
+	"repository": "https://github.com/brettbuddin/claude-plugins",
+	"license": "Apache-2.0",
+	"keywords": [
+		"observability",
+		"development"
+	]
+}

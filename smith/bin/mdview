@@ -1,0 +1,276 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "markdown-it-py[linkify,plugins]",
+#     "mdit-py-plugins",
+#     "weasyprint",
+# ]
+# ///
+
+# Render a Markdown file in the browser with styling.
+# Usage: mdview <file.md>
+#        mdview --pdf <file.md>  Render to PDF and open it
+#        mdview --serve [port]   Start an auto-refreshing HTTP server for .md files in CWD
+
+import sys
+import os
+import html as html_mod
+import json
+import webbrowser
+import urllib.parse
+import http.server
+
+from markdown_it import MarkdownIt
+from mdit_py_plugins.anchors import anchors_plugin
+from mdit_py_plugins.footnote import footnote_plugin
+from mdit_py_plugins.tasklists import tasklists_plugin
+
+_ASSETS = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "lib", "mdview")
+
+
+def _read_asset(name):
+    with open(os.path.join(_ASSETS, name)) as f:
+        return f.read()
+
+
+def _css():
+    base = _read_asset("base.css")
+    theme = _read_asset("theme.css")
+    return f"<style>\n{base}\n</style>\n<style>\n{theme}\n</style>"
+
+def _build_md():
+    md = MarkdownIt("gfm-like", {"linkify": True})
+    anchors_plugin(md, max_level=6)
+    tasklists_plugin(md)
+    footnote_plugin(md)
+
+    default_fence = md.renderer.rules.get("fence", md.renderer.renderToken)
+
+    def fence_with_mermaid(tokens, idx, options, env):
+        token = tokens[idx]
+        info = token.info.strip() if token.info else ""
+        if info == "mermaid":
+            escaped = html_mod.escape(token.content)
+            return f'<pre class="mermaid">{escaped}</pre>\n'
+        return default_fence(tokens, idx, options, env)
+
+    md.renderer.rules["fence"] = fence_with_mermaid
+    return md
+
+
+def _build_toc(md, tokens):
+    """Build a TOC HTML string from heading tokens."""
+    headings = []
+    for i, tok in enumerate(tokens):
+        if tok.type == "heading_open":
+            level = int(tok.tag[1])
+            inline = tokens[i + 1]
+            rendered = md.renderInline(inline.content)
+            anchor = tok.attrGet("id") or ""
+            headings.append((level, anchor, rendered))
+    if not headings:
+        return ""
+    lines = ['<div class="toc">\n<ul>\n']
+    prev_level = headings[0][0]
+    for idx, (level, anchor, rendered) in enumerate(headings):
+        if level > prev_level:
+            for _ in range(level - prev_level):
+                lines.append("<ul>\n")
+        elif level < prev_level:
+            for _ in range(prev_level - level):
+                lines.append("</li>\n</ul>\n")
+            lines.append("</li>\n")
+        elif idx > 0:
+            lines.append("</li>\n")
+        lines.append(f'<li><a href="#{anchor}">{rendered}</a>\n')
+        prev_level = level
+    lines.append("</li>\n")
+    for _ in range(prev_level - headings[0][0]):
+        lines.append("</ul>\n</li>\n")
+    lines.append("</ul>\n</div>")
+    return "".join(lines)
+
+
+def _js(name, **replacements):
+    src = _read_asset(name)
+    for k, v in replacements.items():
+        src = src.replace(k, v)
+    return src
+
+
+def _script(name, module=False, **replacements):
+    attr = ' type="module"' if module else ""
+    return f"<script{attr}>\n{_js(name, **replacements)}\n</script>"
+
+
+def render(text, title):
+    md = _build_md()
+    tokens = md.parse(text)
+    body = md.render(text)
+    toc = _build_toc(md, tokens)
+    css = _css()
+    escaped_title = html_mod.escape(title)
+    html = (
+        f"<!DOCTYPE html>\n<html>\n<head>\n"
+        f"<meta charset=\"utf-8\">\n"
+        f"<title>{escaped_title}</title>\n"
+        f"{css}\n</head>\n<body>\n"
+        f"<header><h1 class=\"title\">{escaped_title}</h1></header>\n"
+        f"{toc}\n{body}\n</body>\n</html>"
+    )
+    if '<pre class="mermaid">' in html:
+        mermaid_js = _script("mermaid.js", module=True)
+        html = html.replace("</body>", mermaid_js + "\n</body>")
+    return html
+
+
+def render_file(path):
+    with open(path) as f:
+        text = f.read()
+    return render(text, os.path.basename(path))
+
+
+def single_file(path):
+    html = render_file(path)
+    name = os.path.basename(path)
+    out = os.path.join("/tmp", name + ".html")
+    with open(out, "w") as f:
+        f.write(html)
+    webbrowser.open("file://" + out)
+
+
+def pdf_file(path):
+    import getpass
+    from datetime import datetime
+    from weasyprint import HTML
+    html = render_file(path)
+    user = getpass.getuser()
+    when = datetime.now().astimezone().isoformat(timespec="seconds")
+    footer = (
+        f'<footer style="margin-top:4em;padding-top:0.5em;'
+        f'border-top:1px solid #ccc;font-size:8pt;color:#888;">'
+        f'Generated {when} by {user}</footer>'
+    )
+    html = html.replace("</body>", footer + "</body>")
+    name = os.path.basename(path)
+    out = os.path.join("/tmp", name + ".pdf")
+    HTML(string=html).write_pdf(out)
+    print(out)
+    webbrowser.open("file://" + out)
+
+
+def serve(port):
+    class Handler(http.server.BaseHTTPRequestHandler):
+        def do_GET(self):
+            path = urllib.parse.unquote(self.path)
+            if path == "/":
+                self._index()
+            elif path.startswith("/view/"):
+                self._view(urllib.parse.unquote(path[6:]))
+            elif path.startswith("/mtime/"):
+                self._mtime(urllib.parse.unquote(path[7:]))
+            elif path == "/mtime-dir":
+                mt = max(
+                    (os.path.getmtime(os.path.join(r, f))
+                     for r, _, fns in os.walk(".") for f in fns if f.endswith(".md")),
+                    default=0,
+                )
+                self._respond(str(mt), "text/plain")
+            else:
+                self.send_error(404)
+
+        def _index(self):
+            local = []
+            nested = []
+            for root, _, filenames in os.walk("."):
+                for f in filenames:
+                    if f.endswith(".md"):
+                        rel = os.path.relpath(os.path.join(root, f))
+                        if os.sep not in rel:
+                            local.append(rel)
+                        else:
+                            nested.append(rel)
+            local.sort()
+            nested.sort()
+
+            def _file_list(files):
+                items = ""
+                for f in files:
+                    items += '<li><a href="/view/{}">{}</a></li>'.format(
+                        urllib.parse.quote(f), html_mod.escape(f)
+                    )
+                return '<ul style="list-style:none;padding-left:0">{}</ul>'.format(items)
+
+            parts = []
+            if local:
+                parts.append(_file_list(local))
+            if local and nested:
+                parts.append("<hr>")
+            if nested:
+                parts.append(_file_list(nested))
+            body = "\n".join(parts) if parts else "<p>No .md files found.</p>"
+            css = _css()
+            index_js = _script("index.js")
+            page = (
+                f"<!DOCTYPE html><html><head><title>mdview</title>"
+                f"{css}</head><body>{body}{index_js}</body></html>"
+            )
+            self._respond(page)
+
+        def _view(self, filename):
+            if not self._valid(filename):
+                self.send_error(404)
+                return
+            html = render_file(filename)
+            js = _script("refresh.js", FILE_PLACEHOLDER=json.dumps(filename))
+            self._respond(html.replace("</body>", js + "</body>"))
+
+        def _mtime(self, filename):
+            if not self._valid(filename):
+                self.send_error(404)
+                return
+            self._respond(str(os.path.getmtime(filename)), "text/plain")
+
+        def _valid(self, f):
+            if not f.endswith(".md") or "\x00" in f:
+                return False
+            resolved = os.path.realpath(f)
+            return resolved.startswith(os.path.realpath(".") + os.sep) and os.path.isfile(resolved)
+
+        def _respond(self, body, ct="text/html"):
+            self.send_response(200)
+            self.send_header("Content-Type", ct)
+            self.end_headers()
+            self.wfile.write(body.encode())
+
+        def log_message(self, fmt, *args):
+            pass
+
+    server = http.server.ThreadingHTTPServer(("localhost", port), Handler)
+    actual_port = server.server_address[1]
+    print(f"Serving {os.getcwd()} at http://localhost:{actual_port}", flush=True)
+    webbrowser.open(f"http://localhost:{actual_port}")
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        pass
+
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: mdview <file.md>")
+        print("       mdview --pdf <file.md>")
+        print("       mdview --serve [port]")
+        sys.exit(1)
+
+    if sys.argv[1] == "--serve":
+        port = int(sys.argv[2]) if len(sys.argv) > 2 else 0
+        serve(port)
+    elif sys.argv[1] == "--pdf":
+        if len(sys.argv) < 3:
+            print("Usage: mdview --pdf <file.md>")
+            sys.exit(1)
+        pdf_file(sys.argv[2])
+    else:
+        single_file(sys.argv[1])
