@@ -4,7 +4,7 @@ A structured agent pipeline for Claude Code. Research a codebase, plan changes, 
 
 All artifacts are persisted as Markdown in a `notes/` directory within your project.
 
-## Why
+## Why?
 
 I've recently revisited projects I haven't touched in years, sometimes a decade, so I'm rebuilding my understanding of the problem space from scratch right alongside Claude. Claude Code's built-in planning mode collapses research and implementation into one pass. For complex problems, this means by the time I see Claude's interpretation, any issues are already baked into the context window; steering everything that follows. I found myself lacking the specificity to course correct, because I hadn't completely realized my own understanding yet.
 
