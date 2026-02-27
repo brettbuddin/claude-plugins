@@ -4,6 +4,12 @@ A structured agent pipeline for Claude Code. Research a codebase, plan changes, 
 
 All artifacts are persisted as Markdown in a `notes/` directory within your project.
 
+## Why
+
+I've recently revisited projects I haven't touched in years, sometimes a decade, so I'm rebuilding my understanding of the problem space from scratch right alongside Claude. Claude Code's built-in planning mode collapses research and implementation into one pass. For complex problems, this means by the time I see Claude's interpretation, any issues are already baked into the context window; steering everything that follows. I found myself lacking the specificity to course correct, because I hadn't completely realized my own understanding yet.
+
+Plan quality is bounded by the quality of the context. Claude writes way better plans when the context window is already seeded with solid and agreed-upon research. Smith attempts to   formalize a workflow to make this easier. The idea is to slow down the early phase where misunderstandings are cheap to fix and expensive to carry forward; especially when I need to re-learn the problem space myself before I can meaningfully guide the work. Writing is thinking and iteration is required to make a crisp thought. This workflow has helped me do that more effectively with Claude.
+
 ## Install
 
 ```
