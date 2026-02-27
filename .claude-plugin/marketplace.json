@@ -20,6 +20,13 @@
 			"description": "OpenTelemetry Skills",
 			"category": "observability",
 			"version": "0.0.1"
+		},
+		{
+			"name": "music",
+			"source": "./music",
+			"description": "Music Theory Skills",
+			"category": "music",
+			"version": "0.0.1"
 		}
 	]
 }
