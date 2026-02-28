@@ -139,6 +139,8 @@ header {
 .toc a:not(:hover) {
   text-decoration: none;
 }
+table.front-matter { margin-bottom: 2em; font-size: 0.9em; }
+table.front-matter th { text-align: right; font-weight: 600; white-space: nowrap; }
 code{white-space: pre-wrap;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {

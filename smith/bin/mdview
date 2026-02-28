@@ -24,6 +24,7 @@ import http.server
 from markdown_it import MarkdownIt
 from mdit_py_plugins.anchors import anchors_plugin
 from mdit_py_plugins.footnote import footnote_plugin
+from mdit_py_plugins.front_matter import front_matter_plugin
 from mdit_py_plugins.tasklists import tasklists_plugin
 
 _ASSETS = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "lib", "mdview")
@@ -44,6 +45,7 @@ def _build_md():
     anchors_plugin(md, max_level=6)
     tasklists_plugin(md)
     footnote_plugin(md)
+    front_matter_plugin(md)
 
     default_fence = md.renderer.rules.get("fence", md.renderer.renderToken)
 
@@ -92,6 +94,36 @@ def _build_toc(md, tokens):
     return "".join(lines)
 
 
+def _parse_front_matter(tokens):
+    """Extract front-matter key-value pairs from tokens."""
+    for tok in tokens:
+        if tok.type == "front_matter":
+            pairs = []
+            for line in tok.content.splitlines():
+                if ":" in line:
+                    key, _, value = line.partition(":")
+                    pairs.append((key.strip(), value.strip()))
+            return pairs
+    return []
+
+
+def _render_front_matter(pairs):
+    """Render front-matter pairs as an HTML table."""
+    if not pairs:
+        return ""
+    rows = ""
+    for key, value in pairs:
+        rows += (
+            f"<tr><th>{html_mod.escape(key)}</th>"
+            f"<td>{html_mod.escape(value)}</td></tr>\n"
+        )
+    return (
+        '<table class="front-matter">\n'
+        f"<tbody>\n{rows}</tbody>\n"
+        "</table>\n"
+    )
+
+
 def _js(name, **replacements):
     src = _read_asset(name)
     for k, v in replacements.items():
@@ -109,6 +141,8 @@ def render(text, title):
     tokens = md.parse(text)
     body = md.render(text)
     toc = _build_toc(md, tokens)
+    fm_pairs = _parse_front_matter(tokens)
+    fm_html = _render_front_matter(fm_pairs)
     css = _css()
     escaped_title = html_mod.escape(title)
     html = (
@@ -117,7 +151,7 @@ def render(text, title):
         f"<title>{escaped_title}</title>\n"
         f"{css}\n</head>\n<body>\n"
         f"<header><h1 class=\"title\">{escaped_title}</h1></header>\n"
-        f"{toc}\n{body}\n</body>\n</html>"
+        f"{fm_html}{toc}\n{body}\n</body>\n</html>"
     )
     if '<pre class="mermaid">' in html:
         mermaid_js = _script("mermaid.js", module=True)
