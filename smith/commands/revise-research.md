@@ -1,7 +1,7 @@
 ---
 description: >-
   Re-dispatch the Researcher agent to address inline annotations left by the
-  reviewer on a notes/research/TOPIC.md file.
+  reviewer on a docs/research/TOPIC.md file.
 ---
 
 # Revise Research
@@ -14,7 +14,7 @@ None.
 
 ## Steps
 
-1. Glob for `notes/research/*.md` in the working directory. If none exist, tell the user to run `/research` first and stop.
+1. Glob for `docs/research/*.md` in the working directory. If none exist, tell the user to run `/research` first and stop.
 2. Use the Task tool with `subagent_type: "Researcher"` and `run_in_background: false`.
 3. Prompt the agent to read the research file and address any inline annotations from the reviewer.
 4. After completion, tell the user the research has been revised and they can review again, run `/revise-research` again, or proceed to `/plan <goal>`.

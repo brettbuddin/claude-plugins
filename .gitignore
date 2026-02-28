@@ -1,3 +1,5 @@
 .DS_Store
-notes
+docs/research
+docs/plans
+docs/reports
 __pycache__

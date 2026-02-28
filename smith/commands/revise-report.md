@@ -1,7 +1,7 @@
 ---
 description: >-
   Re-dispatch the Reporter agent to address inline annotations left
-  by the reviewer on a notes/report/*.md file.
+  by the reviewer on a docs/reports/*.md file.
 ---
 
 # Revise Report
@@ -14,7 +14,7 @@ None.
 
 ## Steps
 
-1. Glob for `notes/report/*.md` in the working directory. If none exist, tell the user to run `/report` first and stop.
+1. Glob for `docs/reports/*.md` in the working directory. If none exist, tell the user to run `/report` first and stop.
 2. Use the Task tool with `subagent_type: "Reporter"` and `run_in_background: false`.
 3. Prompt the agent to read the report file and address any inline annotations from the reviewer.
 4. After completion, tell the user the report has been revised and they can review again or run `/revise-report` again.

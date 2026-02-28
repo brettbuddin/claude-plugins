@@ -1,7 +1,7 @@
 ---
 description: >-
   Dispatch the Planner agent to produce a detailed implementation plan from
-  research findings. Produces a notes/plans/GOAL.md file.
+  research findings. Produces a docs/plans/GOAL.md file.
 ---
 
 # Plan
@@ -14,12 +14,12 @@ Dispatch the Planner agent to produce an implementation plan.
 
 ## Steps
 
-1. Glob for `notes/research/*.md` in the working directory.
+1. Glob for `docs/research/*.md` in the working directory.
 2. Use the Task tool with `subagent_type: "Planner"` and `run_in_background: false`.
 3. Prompt the agent with:
    - The specific goal description provided by the user
    - Which research file(s) exist (let the planner pick the right one per its own instructions)
-4. After completion, tell the user the plan file path (which will be `notes/plans/GOAL.md`) and suggest they review/annotate it, then run `/revise-plan` or `/implement`.
+4. After completion, tell the user the plan file path (which will be `docs/plans/GOAL.md`) and suggest they review/annotate it, then run `/revise-plan` or `/implement`.
 
 ## Prompting the Agent
 

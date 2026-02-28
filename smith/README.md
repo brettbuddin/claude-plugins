@@ -2,7 +2,7 @@
 
 A structured agent pipeline for Claude Code. Research a codebase, plan changes, and implement them through a human-in-the-loop workflow.
 
-All artifacts are persisted as Markdown in a `notes/` directory within your project.
+All artifacts are persisted as Markdown in a `docs/` directory within the project.
 
 ## Why?
 
@@ -24,7 +24,7 @@ Explore a topic in the codebase. The agent reads files, traces data flows, and p
 
 ```mermaid
 flowchart LR
-    R["/smith:research ‹topic›"] --> RD(["notes/research/TOPIC.md"])
+    R["/smith:research ‹topic›"] --> RD(["docs/research/TOPIC.md"])
     RD --> RR{"Review & Annotate"}
     RR --> RV["/smith:revise-research"] --> RD
     RR -->|Approve| Done((✓))
@@ -41,9 +41,9 @@ Design an implementation approach from one or more research documents. The agent
 
 ```mermaid
 flowchart LR
-    R1(["notes/research/TOPIC.md"]) --> P["/smith:plan ‹goal›"]
-    R2(["notes/research/..."]) -.-> P
-    P --> PD(["notes/plans/GOAL.md"])
+    R1(["docs/research/TOPIC.md"]) --> P["/smith:plan ‹goal›"]
+    R2(["docs/research/..."]) -.-> P
+    P --> PD(["docs/plans/GOAL.md"])
     PD --> PR{"Review & Annotate"}
     PR --> PV["/smith:revise-plan"] --> PD
     PR -->|Approve| Done((✓))
@@ -60,9 +60,9 @@ Synthesize research and plans into an RFD-style document for stakeholder review.
 
 ```mermaid
 flowchart LR
-    RD(["notes/research/TOPIC.md"]) --> RP["/smith:report ‹topic›"]
-    PD(["notes/plans/GOAL.md"]) --> RP
-    RP --> RPD(["notes/report/TOPIC.md"])
+    RD(["docs/research/TOPIC.md"]) --> RP["/smith:report ‹topic›"]
+    PD(["docs/plans/GOAL.md"]) --> RP
+    RP --> RPD(["docs/reports/TOPIC.md"])
     RPD --> RPR{"Review & Annotate"}
     RPR --> RPV["/smith:revise-report"] --> RPD
     RPR -->|Approve| S["Share with Stakeholders"]
@@ -79,7 +79,7 @@ Execute an approved plan. The agent works through the task checklist, following 
 
 ```mermaid
 flowchart LR
-    PD(["notes/plans/GOAL.md"]) --> I["/smith:implement"] --> C["Code Changes"]
+    PD(["docs/plans/GOAL.md"]) --> I["/smith:implement"] --> C["Code Changes"]
 ```
 
 | Command | Description |
@@ -90,7 +90,7 @@ flowchart LR
 
 | Command | Description |
 |---------|-------------|
-| `/smith:webview [file]` | Render a notes document in the browser |
+| `/smith:webview [file]` | Render a docs document in the browser |
 
 
 ## Resources

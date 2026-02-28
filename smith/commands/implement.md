@@ -1,7 +1,7 @@
 ---
 description: >-
   Dispatch the Implementer agent to execute an approved implementation plan
-  (notes/plans/GOAL.md).
+  (docs/plans/GOAL.md).
 ---
 
 # Implement
@@ -14,7 +14,7 @@ None.
 
 ## Steps
 
-1. Glob for `notes/plans/*.md` in the working directory. If none exist, tell the user to run `/plan` first and stop.
+1. Glob for `docs/plans/*.md` in the working directory. If none exist, tell the user to run `/plan` first and stop.
 2. Use the Task tool with `subagent_type: "Implementer"`. **Set `run_in_background: false`.**
    The Implementer needs interactive Bash permission prompts, which only work in the foreground.
 3. Prompt the agent to execute the plan.
