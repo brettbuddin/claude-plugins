@@ -12,7 +12,7 @@
 			"source": "./smith",
 			"description": "Research -> Plan -> Implement Agent Pipeline",
 			"category": "productivity",
-			"version": "0.0.1"
+			"version": "0.0.2"
 		},
 		{
 			"name": "otel",
