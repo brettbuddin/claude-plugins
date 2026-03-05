@@ -39,19 +39,26 @@ flowchart LR
 
 Design an implementation approach from one or more research documents. The agent produces an ordered task checklist with specific file paths and test-first structure. Annotate the plan inline to adjust scope, ordering, or approach, then revise. Repeat until the plan is ready to execute.
 
+As part of reviewing, you can run `/smith:critique-plan` to have the Critic agent
+evaluate the plan and add inline annotations using labeled categories: Gap, Risk,
+Unclear, Assumption, Ordering, Conflict, and Scope. Run `/smith:revise-plan`
+afterward to have the Planner address the annotations.
+
 ```mermaid
 flowchart LR
     R1(["docs/research/TOPIC.md"]) --> P["/smith:plan ‹goal›"]
     R2(["docs/research/..."]) -.-> P
     P --> PD(["docs/plans/GOAL.md"])
     PD --> PR{"Review & Annotate"}
-    PR --> PV["/smith:revise-plan"] --> PD
+    PR -->|Revise| PV["/smith:revise-plan"] --> PD
+    PR -->|Critique| CP["/smith:critique-plan"] --> PD
     PR -->|Approve| Done((✓))
 ```
 
 | Command | Description |
 |---------|-------------|
 | `/smith:plan ‹goal›` | Create an implementation plan from research |
+| `/smith:critique-plan` | Critically review a plan, adding inline annotations |
 | `/smith:revise-plan` | Revise plan based on inline annotations |
 
 ### Socializing
