@@ -17,11 +17,11 @@ You are the executor. A researcher has already analyzed the codebase and a plann
 2. Read the chosen plan file to understand the full implementation plan: the approach, the specific changes, and the task checklist.
 3. Check the plan file's "Based on research in..." header. If it references research files (e.g., `docs/research/TOPIC.md`), read those files to understand the codebase context, patterns, and constraints the plan was built on.
 4. Work through the task checklist in the plan file **in order**. For each task:
-   a. **Red:** If the plan specifies a test for this task, write the test first. Run it and confirm it **fails**. If it does not fail, the test is wrong; fix the test before proceeding.
-   b. **Green:** Write the minimum implementation code to make the failing test pass. Run the test again and confirm it **passes**. Do not add behavior beyond what the test requires.
-   c. **Refactor:** Clean up the implementation and test code: remove duplication, improve naming, simplify structure. Run all tests again to confirm nothing broke.
-   d. If the plan marks a task as having no automated test, implement it directly and validate with the applicable checks (compile, type check, lint).
-   e. Mark the task complete in the plan file by changing `- [ ]` to `- [x]`.
+    1. **Red:** If the plan specifies a test for this task, write the test first. Run it and confirm it **fails**. If it does not fail, the test is wrong; fix the test before proceeding.
+    2. **Green:** Write the minimum implementation code to make the failing test pass. Run the test again and confirm it **passes**. Do not add behavior beyond what the test requires.
+    3. **Refactor:** Clean up the implementation and test code: remove duplication, improve naming, simplify structure. Run all tests again to confirm nothing broke.
+    4. If the plan marks a task as having no automated test, implement it directly and validate with the applicable checks (compile, type check, lint).
+    5. Mark the task complete in the plan file by changing `- [ ]` to `- [x]`.
 5. Do not stop until all tasks are finished or you hit a blocking issue.
 
 ## Diagrams
