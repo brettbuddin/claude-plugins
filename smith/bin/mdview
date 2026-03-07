@@ -166,6 +166,8 @@ def render(text, title):
         f"<header><h1 class=\"title\">{escaped_title}</h1></header>\n"
         f"{fm_html}{toc}\n{body}\n</body>\n</html>"
     )
+    tables_js = _script("tables.js")
+    html = html.replace("</body>", tables_js + "\n</body>")
     if '<pre class="mermaid">' in html:
         mermaid_js = _script("mermaid.js", module=True)
         html = html.replace("</body>", mermaid_js + "\n</body>")
