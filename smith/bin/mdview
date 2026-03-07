@@ -58,6 +58,19 @@ def _build_md():
         return default_fence(tokens, idx, options, env)
 
     md.renderer.rules["fence"] = fence_with_mermaid
+
+    default_table_open = md.renderer.rules.get("table_open", md.renderer.renderToken)
+    default_table_close = md.renderer.rules.get("table_close", md.renderer.renderToken)
+
+    def table_open_wrapper(tokens, idx, options, env):
+        return '<div class="table-wrapper">' + default_table_open(tokens, idx, options, env)
+
+    def table_close_wrapper(tokens, idx, options, env):
+        return default_table_close(tokens, idx, options, env) + '</div>\n'
+
+    md.renderer.rules["table_open"] = table_open_wrapper
+    md.renderer.rules["table_close"] = table_close_wrapper
+
     return md
 
 
