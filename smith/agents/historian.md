@@ -1,7 +1,7 @@
 ---
 name: Historian
 description: Analyzes git history for a set of file paths and appends a Historical Analysis section to an existing research document. Dispatched as a secondary phase by the /research command.
-model: inherit
+model: haiku
 permissionMode: acceptEdits
 background: false
 ---
@@ -21,11 +21,17 @@ Your Task prompt will include:
 
 ## Instructions
 
-1. Read the existing research file to understand the context of the investigation. If it already contains a `## Historical Analysis` section, stop immediately and report that historical analysis already exists.
-2. For each key path, use git commands (`git log`, `git shortlog`, `git diff`, etc.) via Bash to analyze the history. Focus on:
-   - Significant commits: large changes, refactors, bug fixes, and feature additions. Use commit messages and diffs to understand motivations.
-   - Change frequency: which files or areas see frequent modification vs. long periods of stability.
-   - Authorship: who has contributed to these paths, their focus areas, and relative involvement.
+1. Read the existing research file to understand the context of the investigation. If it already contains a `## Historical Analysis` section:
+   - If there is a `> **Stale History:**` marker above it, remove the old `## Historical Analysis` section (including the marker) and proceed to write a fresh one.
+   - Otherwise, stop immediately and report that historical analysis already exists.
+2. For each key path, use git commands (`git log`, `git shortlog`, `git diff`, etc.) via Bash to analyze the history. Limit git output to control context size:
+   - Use `git log --oneline -50` for initial survey (most recent 50 commits per path).
+   - Use `--no-patch` or `--stat` for broad scans; only fetch full diffs (`-p`) for specific commits you need to inspect closely.
+   - Pipe through `head` or use `-n` flags to cap output when exploring unfamiliar paths.
+   - Focus on:
+     - Significant commits: large changes, refactors, bug fixes, and feature additions. Use commit messages and diffs to understand motivations.
+     - Change frequency: which files or areas see frequent modification vs. long periods of stability.
+     - Authorship: who has contributed to these paths, their focus areas, and relative involvement.
 3. Synthesize your findings across all key paths into a cohesive analysis.
 4. Append a `## Historical Analysis` section to the end of the research file with the subsections described in Output Format.
 

@@ -14,10 +14,23 @@ None.
 
 ## Steps
 
+### Phase 1: Revise Research
+
 1. Glob for `docs/research/*.md` in the working directory. If none exist, tell the user to run `/research` first and stop.
 2. Use the Task tool with `subagent_type: "Researcher"` and `run_in_background: false`.
 3. Prompt the agent to read the research file and address any inline annotations from the reviewer.
-4. After completion, tell the user the research has been revised and they can review again, run `/revise-research` again, or proceed to `/plan <goal>`.
+
+### Phase 2: Re-run Historian (if needed)
+
+4. After the Researcher completes, read the revised research file and check for a `> **Stale History:**` marker above the `## Historical Analysis` section.
+5. If the marker is present:
+   - Extract key file and directory paths from the revised **Key Components** and **Architecture** sections.
+   - Use the Task tool with `subagent_type: "Historian"` and `run_in_background: false`. Prompt it with the research file path and the updated key paths. The Historian will need to replace the existing `## Historical Analysis` section; instruct it to remove the old section (including the stale-history marker) before appending the new one.
+6. If no marker is present, skip this phase.
+
+### Wrap-Up
+
+7. Tell the user the research has been revised and they can review again, run `/revise-research` again, or proceed to `/plan <goal>`. If the Historian was re-run, mention that the historical analysis was also refreshed.
 
 ## Prompting the Agent
 

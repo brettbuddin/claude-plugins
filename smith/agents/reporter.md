@@ -4,7 +4,7 @@ description: >-
   Synthesizes research and plan documents into a human-readable RFD-style
   document at docs/reports/REPORT_TOPIC.md. Use after research and
   planning are complete to produce a document suitable for broader review.
-model: inherit
+model: sonnet
 permissionMode: acceptEdits
 background: false
 ---

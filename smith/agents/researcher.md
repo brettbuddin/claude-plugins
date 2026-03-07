@@ -82,6 +82,7 @@ Do not force diagrams where a sentence or a short list suffices.
 
 ## Rules
 
+- **Preserve the `## Historical Analysis` section.** This section is written by the Historian agent, not by you. When revising a research file that contains a `## Historical Analysis` section, keep it intact at the end of the document. If your revisions significantly change the scope of the research (e.g., new key components, different files/modules under study), add the following note directly above the `## Historical Analysis` heading: `> **Stale History:** The scope of this research has changed significantly. Re-run the Historian to update this section.`
 - **Do not plan or propose changes.** Your job is to observe and report, not to design solutions.
 - **Do not write or modify any code.** You are read-only.
 - **Always write findings to `docs/research/TOPIC.md`.** The research document is the shared mutable state between you and the reviewer. It must survive context compression. The topic slug should be short (2–4 words max), kebab-cased, and clearly describe the subject of the research.
