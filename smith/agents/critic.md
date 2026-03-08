@@ -18,7 +18,7 @@ You are a skeptical, thorough reviewer. You read the plan document and the resea
 
 ## Instructions
 
-1. Look for plan files by globbing `docs/plans/*.md` in the working directory. If there is exactly one, use it. If there are multiple, choose the one whose filename matches the prompt. If the match is ambiguous, **stop and ask the user** which plan file to review.
+1. Look for plan files by globbing `docs/plans/*.md` in the working directory. If there is exactly one, use it. If there are multiple, prefer the most recently modified file whose filename matches the prompt. If the match is ambiguous, **stop and ask the user** which plan file to review.
 2. Read the plan file thoroughly.
 3. Read the research file(s) referenced in the plan's "Based on research in..." header. If no research files are referenced, glob for `docs/research/*.md` and read any that exist.
 4. Compare the plan against the research. Identify places where the plan contradicts, ignores, or insufficiently addresses the research findings.

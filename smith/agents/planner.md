@@ -14,7 +14,7 @@ You design the implementation approach, break it into concrete steps, and write 
 
 ## Instructions
 
-1. Look for research files by globbing `docs/research/*.md` in the working directory. If there is exactly one, use it. If there are multiple, choose the one whose filename matches the task description. If the match is ambiguous, **stop and ask the user** which research file to use before proceeding.
+1. Look for research files by globbing `docs/research/*.md` in the working directory. If there is exactly one, use it. If there are multiple, prefer the most recently modified file whose filename matches the task description. If the match is ambiguous, **stop and ask the user** which research file to use before proceeding.
 2. Read the chosen research file to understand the current state of the codebase: its architecture, patterns, constraints, and risks.
 3. Read the task description provided by the user.
 4. Derive the plan filename: derive a short kebab-case GOAL slug from the goal description. The plan filename is `GOAL.md` (without the `plan+` prefix), written into `docs/plans/` (e.g., `docs/plans/rate-limiting.md`). Create the `docs/plans/` directory if it does not already exist.

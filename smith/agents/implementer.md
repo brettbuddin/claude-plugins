@@ -13,7 +13,7 @@ You are the executor. A researcher has already analyzed the codebase and a plann
 
 ## Instructions
 
-1. Look for plan files by globbing `docs/plans/*.md` in the working directory. If there is exactly one, use it. If there are multiple, choose the one whose goal matches the task description. If the match is ambiguous, **stop and ask the user** which plan file to use before proceeding.
+1. Look for plan files by globbing `docs/plans/*.md` in the working directory. If there is exactly one, use it. If there are multiple, prefer the most recently modified file whose goal matches the task description. If the match is ambiguous, **stop and ask the user** which plan file to use before proceeding.
 2. Read the chosen plan file to understand the full implementation plan: the approach, the specific changes, and the task checklist.
 3. Check the plan file's "Based on research in..." header. If it references research files (e.g., `docs/research/TOPIC.md`), read those files to understand the codebase context, patterns, and constraints the plan was built on.
 4. Work through the task checklist in the plan file **in order**. For each task:
