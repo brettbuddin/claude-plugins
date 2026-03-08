@@ -3,3 +3,5 @@ docs/research
 docs/plans
 docs/reports
 __pycache__
+
+settings.local.json
