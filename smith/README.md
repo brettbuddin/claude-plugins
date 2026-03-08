@@ -12,8 +12,11 @@ Plan quality is bounded by the quality of the context. Claude writes way better 
 
 ## Install
 
+Add the marketplace and install:
+
 ```
-/plugin install smith
+/plugin marketplace add https://github.com/brettbuddin/claude-plugins
+/plugin install smith@brettbuddin
 ```
 
 ## The Workflow

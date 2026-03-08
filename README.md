@@ -6,8 +6,8 @@ A collection of [Claude Code](https://claude.ai/code) plugins.
 
 | Plugin | Description |
 |--------|-------------|
-| [smith](smith/) | Research, Plan, Implement Pipeline |
 | [otel](otel/) | Tools for OpenTelemetry |
+| [smith](smith/) | Research, Plan, Implement Pipeline |
 
 ## Installation
 
