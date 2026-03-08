@@ -1,6 +1,6 @@
 ---
 name: recall
-description: This skill should be used when the user asks a general question about the project, its architecture, design decisions, agent pipeline, or codebase structure. It should also be used when the user asks "how does X work", "why was X done this way", or requests an explanation of existing behavior. Do not use this skill when the user is invoking a Smith command (e.g., /smith:research, /smith:plan) or asking to create, modify, or implement something.
+description: This skill should be used when the user asks a general question about the project, its architecture, design decisions, agent pipeline, or codebase structure. It should also be used when the user asks "how does X work", "why was X done this way", or requests an explanation of existing behavior. Do not use this skill when the user is invoking a Smith Command (e.g., /smith:research, /smith:plan) or asking to create, modify, or implement something.
 ---
 
 # Context Lookup
