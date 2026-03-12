@@ -40,6 +40,10 @@ YAML
 # Directory where Smith writes research, plans, and reports.
 # Default: docs/
 output_directory: docs/
+
+# Automatically critique and revise plans after initial generation.
+# Default: false
+plan_auto_critique: false
 ```
 
 All fields are optional. An empty file or a file with only some fields is valid.
@@ -49,6 +53,7 @@ All fields are optional. An empty file or a file with only some fields is valid.
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
 | `output_directory` | string | `docs/` | Base directory where Smith writes documents. Research files go to `<output_directory>/research/`, plans to `<output_directory>/plans/`, and reports to `<output_directory>/reports/`. |
+| `plan_auto_critique` | boolean | `false` | When `true`, the `/plan` command automatically runs one round of critique (Critic agent) and revision (Planner agent) after producing the initial plan. |
 
 The schema is intentionally open. Users may add additional keys as needed; agents should read what they recognize and ignore the rest.
 

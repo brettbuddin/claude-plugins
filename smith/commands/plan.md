@@ -14,13 +14,18 @@ Dispatch the Planner agent to produce an implementation plan.
 
 ## Steps
 
-0. Check for `.smith.local.yaml` in the working directory. If it exists, read the `output_directory` value. If absent, default to `docs/`. Use this value wherever `<output_directory>` appears below.
+0. Check for `.smith.local.yaml` in the working directory. If it exists, read the `output_directory` value (default: `docs/`) and the `plan_auto_critique` value (default: `false`). Use these values in the steps below.
 1. Glob for `<output_directory>/research/*.md` in the working directory.
 2. Use the Task tool with `subagent_type: "Planner"` and `run_in_background: false`.
 3. Prompt the agent with:
    - The specific goal description provided by the user
    - Which research file(s) exist (let the planner pick the right one per its own instructions)
-4. After completion, tell the user the plan file path (which will be `<output_directory>/plans/GOAL.md`) and suggest they review/annotate it, then run `/revise-plan` or `/implement`.
+4. If `plan_auto_critique` is `true`:
+   a. Use the Task tool with `subagent_type: "Critic"` and `run_in_background: false`. Prompt the agent with the working directory path so it can find and annotate the plan file that was just created.
+   b. After the Critic completes, use the Task tool with `subagent_type: "Planner"` and `run_in_background: false`. Prompt the agent with the working directory path and instruct it to read the plan file and address any inline annotations from the Critic.
+5. After completion:
+   - If auto-critique ran: tell the user the plan has been critiqued and revised, provide the file path, and suggest they review it. Mention they can run `/critique-plan` and `/revise-plan` for additional rounds, or proceed to `/implement`.
+   - If auto-critique did not run: tell the user the plan file path (which will be `<output_directory>/plans/GOAL.md`) and suggest they review/annotate it, then run `/critique-plan`, `/revise-plan`, or `/implement`.
 
 ## Prompting the Agent
 
