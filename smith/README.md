@@ -19,6 +19,17 @@ Add the marketplace and install:
 /plugin install smith@brettbuddin
 ```
 
+## Configuration
+
+Smith supports per-project configuration via a `.smith.local.yaml` file in your project root. Copy the example file as a starting point:
+
+```
+cp ~/.claude/plugin-commands/smith/.smith.local.example.yaml .smith.local.yaml
+echo '.smith.local.yaml' >> .gitignore
+```
+
+All fields are optional. See the example file for available settings and their defaults.
+
 ## The Workflow
 
 ### Research and Discovery

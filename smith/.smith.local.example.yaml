@@ -1,0 +1,12 @@
+# Smith project configuration
+#
+# Copy this file to your project root as .smith.local.yaml and customize.
+# This file should be added to .gitignore.
+
+# Directory where Smith writes research, plans, and reports.
+# Default: docs/
+output_directory: docs/
+
+# Automatically critique and revise plans after initial generation.
+# Default: false
+plan_auto_critique: false
