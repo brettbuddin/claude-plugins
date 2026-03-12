@@ -13,21 +13,25 @@ This skill activates for general questions about the project: architecture, desi
 
 ## Procedure
 
-### 1. Check for Existing Documents
+### 1. Resolve Output Directory
+
+Check for a `.smith.local.yaml` file in the working directory. If it exists, read the `output_directory` value. If absent, default to `docs/`. Use this as the base for all document paths below.
+
+### 2. Check for Existing Documents
 
 Glob for files in these directories (relative to the working directory):
 
-- `docs/research/*.md`
-- `docs/plans/*.md`
+- `<output_directory>/research/*.md`
+- `<output_directory>/plans/*.md`
 
-If no files exist in either directory, skip to step 3.
+If no files exist in either directory, skip to step 4.
 
-### 2. Select and Read Relevant Documents
+### 3. Select and Read Relevant Documents
 
 Prefer documents already known to the current conversation (i.e., files read or produced earlier in this session). Among remaining candidates, prefer the most recently modified files. If there is exactly one file whose topic matches the question, use it. If there are multiple plausible matches and the best choice is ambiguous, **stop and ask the user** which document to consult before proceeding.
 
 Read the selected document(s). If the answer is fully covered by the existing documents, respond directly from them. Cite the source file path when drawing from a specific document.
 
-### 3. Fall Back to Exploration
+### 4. Fall Back to Exploration
 
 If no existing documents are relevant, or they do not fully answer the question, proceed with normal codebase exploration (Glob, Grep, Read, or the Explore agent as appropriate). Do not re-research topics already covered by an existing document.

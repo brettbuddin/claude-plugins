@@ -1,7 +1,7 @@
 ---
 description: >-
   Re-dispatch the Planner agent to address inline annotations left by the
-  reviewer on a docs/plans/GOAL.md file.
+  reviewer on an <output_directory>/plans/GOAL.md file.
 ---
 
 # Revise Plan
@@ -14,7 +14,8 @@ None.
 
 ## Steps
 
-1. Glob for `docs/plans/*.md` in the working directory. If none exist, tell the user to run `/plan` first and stop.
+0. Check for `.smith.local.yaml` in the working directory. If it exists, read the `output_directory` value. If absent, default to `docs/`. Use this value wherever `<output_directory>` appears below.
+1. Glob for `<output_directory>/plans/*.md` in the working directory. If none exist, tell the user to run `/plan` first and stop.
 2. Use the Task tool with `subagent_type: "Planner"` and `run_in_background: false`.
 3. Prompt the agent to read the plan file and address any inline annotations from the reviewer.
 4. After completion, tell the user the plan has been revised and they can review again, run `/revise-plan` again, or `/implement`.

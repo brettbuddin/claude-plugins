@@ -1,7 +1,7 @@
 ---
 description: >-
   Dispatch the Researcher agent to deeply read and analyze the codebase for a
-  given topic. Produces a docs/research/TOPIC.md report.
+  given topic. Produces an <output_directory>/research/TOPIC.md report.
 ---
 
 # Research
@@ -14,11 +14,15 @@ Dispatch the Researcher agent to produce a research report, then run git history
 
 ## Steps
 
+### Configuration
+
+0. Check for `.smith.local.yaml` in the working directory. If it exists, read the `output_directory` value. If absent, default to `docs/`. Use this value wherever `<output_directory>` appears below.
+
 ### Phase 1: Research
 
 1. Use the Task tool with `subagent_type: "Researcher"` and `run_in_background: false`.
 2. Prompt the agent with the topic/area description provided by the user.
-3. After completion, note the research file path (e.g., `docs/research/TOPIC.md`).
+3. After completion, note the research file path (e.g., `<output_directory>/research/TOPIC.md`).
 
 ### Phase 2: History
 

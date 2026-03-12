@@ -1,7 +1,7 @@
 ---
 description: >-
   Re-dispatch the Researcher agent to address inline annotations left by the
-  reviewer on a docs/research/TOPIC.md file.
+  reviewer on an <output_directory>/research/TOPIC.md file.
 ---
 
 # Revise Research
@@ -14,9 +14,13 @@ None.
 
 ## Steps
 
+### Configuration
+
+0. Check for `.smith.local.yaml` in the working directory. If it exists, read the `output_directory` value. If absent, default to `docs/`. Use this value wherever `<output_directory>` appears below.
+
 ### Phase 1: Revise Research
 
-1. Glob for `docs/research/*.md` in the working directory. If none exist, tell the user to run `/research` first and stop.
+1. Glob for `<output_directory>/research/*.md` in the working directory. If none exist, tell the user to run `/research` first and stop.
 2. Use the Task tool with `subagent_type: "Researcher"` and `run_in_background: false`.
 3. Prompt the agent to read the research file and address any inline annotations from the reviewer.
 

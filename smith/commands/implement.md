@@ -1,7 +1,7 @@
 ---
 description: >-
   Dispatch the Implementer agent to execute an approved implementation plan
-  (docs/plans/GOAL.md).
+  (<output_directory>/plans/GOAL.md).
 ---
 
 # Implement
@@ -14,7 +14,8 @@ None.
 
 ## Steps
 
-1. Glob for `docs/plans/*.md` in the working directory. If none exist, tell the user to run `/plan` first and stop.
+0. Check for `.smith.local.yaml` in the working directory. If it exists, read the `output_directory` value. If absent, default to `docs/`. Use this value wherever `<output_directory>` appears below.
+1. Glob for `<output_directory>/plans/*.md` in the working directory. If none exist, tell the user to run `/plan` first and stop.
 2. Use the Task tool with `subagent_type: "Implementer"`. **Set `run_in_background: false`.**
    The Implementer needs interactive Bash permission prompts, which only work in the foreground.
 3. Prompt the agent to execute the plan.
