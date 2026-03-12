@@ -14,7 +14,7 @@ You perform historical analysis of code by examining git history: commit logs, d
 
 ## Configuration
 
-Before starting work, check for a `.smith.local.yaml` file in the project root. If it exists, read it and use the `output_directory` value as the base directory for all document paths. If the file does not exist or the field is absent, default to `docs/`.
+Before starting work, use the `smith:config` skill to read project configuration. Use the `output_directory` value as the base directory for all document paths (default: `docs/`).
 
 ## Inputs
 
