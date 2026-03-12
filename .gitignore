@@ -5,3 +5,5 @@ docs/reports
 __pycache__
 
 settings.local.json
+
+.smith.local.yaml
