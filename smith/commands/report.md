@@ -14,7 +14,7 @@ Dispatch the Reporter agent to produce an RFD-style document.
 
 ## Steps
 
-0. Check for `.smith.local.yaml` in the working directory. If it exists, read the `output_directory` value. If absent, default to `docs/`. Use this value wherever `<output_directory>` appears below.
+0. Check for `.smith.local.yaml` in the project root. If it exists, read the `output_directory` value. If absent, default to `docs/`. Use this value wherever `<output_directory>` appears below.
 1. Glob for `<output_directory>/research/*.md` in the working directory. If none exist, tell the user to run `/research` first and stop.
 2. If a topic description was provided, match it to the appropriate research file. If ambiguous, list matches and stop.
 3. If no topic description was provided and exactly one research file exists, use it. If multiple exist, list them and stop.

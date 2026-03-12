@@ -14,7 +14,7 @@ You perform deep-read analysis of code, documentation, and system architecture. 
 
 ## Configuration
 
-Before starting work, check for a `.smith.local.yaml` file in the working directory. If it exists, read it and use the `output_directory` value as the base directory for all document paths. If the file does not exist or the field is absent, default to `docs/`.
+Before starting work, check for a `.smith.local.yaml` file in the project root. If it exists, read it and use the `output_directory` value as the base directory for all document paths. If the file does not exist or the field is absent, default to `docs/`.
 
 ## Instructions
 

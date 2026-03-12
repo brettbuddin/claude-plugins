@@ -15,7 +15,7 @@ This skill activates for general questions about the project: architecture, desi
 
 ### 1. Resolve Output Directory
 
-Check for a `.smith.local.yaml` file in the working directory. If it exists, read the `output_directory` value. If absent, default to `docs/`. Use this as the base for all document paths below.
+Check for a `.smith.local.yaml` file in the project root. If it exists, read the `output_directory` value. If absent, default to `docs/`. Use this as the base for all document paths below.
 
 ### 2. Check for Existing Documents
 

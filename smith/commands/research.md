@@ -16,7 +16,7 @@ Dispatch the Researcher agent to produce a research report, then run git history
 
 ### Configuration
 
-0. Check for `.smith.local.yaml` in the working directory. If it exists, read the `output_directory` value. If absent, default to `docs/`. Use this value wherever `<output_directory>` appears below.
+0. Check for `.smith.local.yaml` in the project root. If it exists, read the `output_directory` value. If absent, default to `docs/`. Use this value wherever `<output_directory>` appears below.
 
 ### Phase 1: Research
 

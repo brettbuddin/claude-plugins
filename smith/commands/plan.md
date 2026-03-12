@@ -14,7 +14,7 @@ Dispatch the Planner agent to produce an implementation plan.
 
 ## Steps
 
-0. Check for `.smith.local.yaml` in the working directory. If it exists, read the `output_directory` value (default: `docs/`) and the `plan_auto_critique` value (default: `false`). Use these values in the steps below.
+0. Check for `.smith.local.yaml` in the project root. If it exists, read the `output_directory` value (default: `docs/`) and the `plan_auto_critique` value (default: `false`). Use these values in the steps below.
 1. Glob for `<output_directory>/research/*.md` in the working directory.
 2. Use the Task tool with `subagent_type: "Planner"` and `run_in_background: false`.
 3. Prompt the agent with:

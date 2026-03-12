@@ -14,7 +14,7 @@ None.
 
 ## Steps
 
-0. Check for `.smith.local.yaml` in the working directory. If it exists, read the `output_directory` value. If absent, default to `docs/`. Use this value wherever `<output_directory>` appears below.
+0. Check for `.smith.local.yaml` in the project root. If it exists, read the `output_directory` value. If absent, default to `docs/`. Use this value wherever `<output_directory>` appears below.
 1. Glob for `<output_directory>/plans/*.md` in the working directory. If none exist, tell the user to run `/plan` first and stop.
 2. Use the Task tool with `subagent_type: "Implementer"`. **Set `run_in_background: false`.**
    The Implementer needs interactive Bash permission prompts, which only work in the foreground.

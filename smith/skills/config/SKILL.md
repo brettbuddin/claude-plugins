@@ -18,7 +18,7 @@ project-root/
 └── .smith.local.yaml
 ```
 
-The file lives in the project root (the working directory), not inside `.claude/` or `docs/`.
+The file lives in the project root, not inside `.claude/` or `docs/`.
 
 ## Gitignore
 
@@ -61,11 +61,11 @@ The schema is intentionally open. Users may add additional keys as needed; agent
 
 ### From Commands
 
-When a Smith command dispatches an agent, it should check for `.smith.local.yaml` in the working directory. If the file exists, read it and include relevant settings in the agent prompt.
+When a Smith command dispatches an agent, it should check for `.smith.local.yaml` in the project root. If the file exists, read it and include relevant settings in the agent prompt.
 
 **Procedure:**
 
-1. Check if `.smith.local.yaml` exists in the working directory using Glob or Read.
+1. Check if `.smith.local.yaml` exists in the project root using Glob or Read.
 2. If it exists, read the file contents.
 3. Extract the fields relevant to the agent being dispatched.
 4. Include them in the agent prompt as a "Project Configuration" section.

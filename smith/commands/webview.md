@@ -22,7 +22,7 @@ used automatically. If multiple exist, list the available files and stop.
 
 ## Steps
 
-0. Check for `.smith.local.yaml` in the working directory. If it exists, read the `output_directory` value. If absent, default to `docs/`. Use this value wherever `<output_directory>` appears below.
+0. Check for `.smith.local.yaml` in the project root. If it exists, read the `output_directory` value. If absent, default to `docs/`. Use this value wherever `<output_directory>` appears below.
 1. If the argument is `serve`, locate the rendering script (the plugin root
    is the directory two levels above this command file; the script path is
    `<plugin-root>/bin/mdview`). Use the Bash tool with
