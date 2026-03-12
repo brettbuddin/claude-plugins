@@ -57,38 +57,9 @@ All fields are optional. An empty file or a file with only some fields is valid.
 
 The schema is intentionally open. Users may add additional keys as needed; agents should read what they recognize and ignore the rest.
 
-## Reading Configuration
+## Fallback Behavior
 
-### From Commands
-
-When a Smith command dispatches an agent, it should check for `.smith.local.yaml` in the project root. If the file exists, read it and include relevant settings in the agent prompt.
-
-**Procedure:**
-
-1. Check if `.smith.local.yaml` exists in the project root using Glob or Read.
-2. If it exists, read the file contents.
-3. Extract the fields relevant to the agent being dispatched.
-4. Include them in the agent prompt as a "Project Configuration" section.
-
-**Example prompt construction:**
-
-```
-The working directory is /path/to/project.
-
-## Project Configuration (from .smith.local.yaml)
-
-- **Output directory:** `design-docs/`
-
-<rest of agent prompt>
-```
-
-### From Agents
-
-Agents that write documents (Researcher, Planner, Reporter) should use the configured `output_directory` instead of the default `docs/` when the dispatching command provides it. For example, if `output_directory` is `design-docs/`, the Researcher writes to `design-docs/research/TOPIC.md` instead of `docs/research/TOPIC.md`.
-
-### Fallback Behavior
-
-If `.smith.local.yaml` does not exist, or a field is absent, agents use the defaults listed in the schema. Configuration is always optional; its absence must never block execution.
+If `.smith.local.yaml` does not exist, or a field is absent, use the defaults listed in the schema. Configuration is always optional; its absence must never block execution.
 
 ## Creating the Configuration File
 
@@ -103,5 +74,5 @@ When a user asks to configure Smith or set up project settings:
 
 - User asks to configure Smith, set preferences, or customize agent behavior.
 - User asks "how do I configure Smith" or similar setup questions.
-- A Smith command or agent needs to read project settings before dispatching work.
+- A Smith command or agent needs to read project settings before starting work.
 - User wants to change the output directory or other settings.
