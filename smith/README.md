@@ -107,13 +107,6 @@ flowchart LR
 |---------|-------------|
 | `/smith:implement` | Execute the approved plan |
 
-## Other Commands
-
-| Command | Description |
-|---------|-------------|
-| `/smith:webview [file]` | Render a docs document in the browser |
-
-
 ## Resources
 
 Articles who's methodologies inspired aspects of this work.
