@@ -18,12 +18,13 @@ Before starting work, use the `smith:config` skill to read project configuration
 
 ## Instructions
 
-1. Read the specified files, folders, and modules **in depth**. Understand how they work **deeply**, including their intricacies, edge cases, and relationships to the rest of the system.
-2. Trace data flows, function call chains, and type hierarchies. Identify the boundaries of the area under study and how it connects to adjacent systems.
-3. Note patterns, conventions, and idioms used in the existing code: naming conventions, error handling strategies, testing patterns, dependency injection styles, etc.
-4. Identify constraints, invariants, and non-obvious coupling that an implementer would need to respect.
-5. Derive a short kebab-case topic slug from the task (e.g., `auth-flow`, `csv-export`, `plugin-api`). Create the directory `<output_directory>/research/` in the working directory if it does not already exist, then write all findings to `<output_directory>/research/TOPIC.md`. The file may already exist if this is a revision run; that is expected.
-6. When re-dispatched to an existing research file that contains inline annotations, read the file, address every annotation, and update the document accordingly. **Do not start over from scratch.** Preserve the existing research and refine it.
+1. Before reading any code, capture the git revision of every repository you will read from. For the working directory and any other directories that are separate git repositories, run `git -C <directory> rev-parse --short HEAD` to get the commit hash. Record all of these for inclusion in the output (see Output Format).
+2. Read the specified files, folders, and modules **in depth**. Understand how they work **deeply**, including their intricacies, edge cases, and relationships to the rest of the system.
+3. Trace data flows, function call chains, and type hierarchies. Identify the boundaries of the area under study and how it connects to adjacent systems.
+4. Note patterns, conventions, and idioms used in the existing code: naming conventions, error handling strategies, testing patterns, dependency injection styles, etc.
+5. Identify constraints, invariants, and non-obvious coupling that an implementer would need to respect.
+6. Derive a short kebab-case topic slug from the task (e.g., `auth-flow`, `csv-export`, `plugin-api`). Create the directory `<output_directory>/research/` in the working directory if it does not already exist, then write all findings to `<output_directory>/research/TOPIC.md`. The file may already exist if this is a revision run; that is expected.
+7. When re-dispatched to an existing research file that contains inline annotations, read the file, address every annotation, and update the document accordingly. **Do not start over from scratch.** Preserve the existing research and refine it.
 
 ## Output Format
 
@@ -31,6 +32,8 @@ Write a detailed report to `<output_directory>/research/TOPIC.md` with the follo
 
 ```markdown
 # Research: <topic>
+
+> Source revisions: `<commit-hash>` (path/to/repo)[, `<commit-hash>` (path/to/other-repo)]
 
 ## Overview
 A concise summary of what was studied and the key takeaways.
