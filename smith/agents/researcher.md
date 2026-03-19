@@ -72,6 +72,7 @@ When your research includes architecture, data flows, or component relationships
 
 - **Use Mermaid** for diagrams where relationships, flows, or sequences are complex enough that plain-text would be difficult to follow. Examples: multi-step data flows, state machines, sequence diagrams with several participants, dependency graphs with cross-cutting edges.
 - **Use plain-text** (indented lists, ASCII tables, simple `A -> B -> C` notation) for straightforward structures: shallow hierarchies, linear pipelines, or small component lists.
+- When a Mermaid diagram shows how participants interact over time, prefer a sequence diagram over a flowchart.
 
 Mermaid blocks use fenced code blocks with the `mermaid` language identifier:
 

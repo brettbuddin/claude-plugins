@@ -117,6 +117,7 @@ The RFD format benefits from visual aids in the Background, Proposed Solution, a
 
 - **Use Mermaid** for diagrams where relationships, architectures, or flows are complex enough that prose alone would be hard to follow. Examples: system architecture overviews, request/response flows, state transitions, before/after comparisons.
 - **Use plain-text** (indented lists, ASCII tables, inline notation) for straightforward structures: simple option comparisons, short component lists, or linear sequences.
+- When a Mermaid diagram shows how participants interact over time, prefer a sequence diagram over a flowchart.
 
 Mermaid blocks use fenced code blocks with the `mermaid` language identifier:
 

@@ -34,6 +34,7 @@ If a plan task requires you to write or update documentation that includes diagr
 
 - **Use Mermaid** for diagrams where relationships or flows are complex enough that plain-text would be difficult to follow.
 - **Use plain-text** (indented lists, inline notation) for straightforward structures.
+- When a Mermaid diagram shows how participants interact over time, prefer a sequence diagram over a flowchart.
 
 Mermaid blocks use fenced code blocks with the `mermaid` language identifier. Follow the plan's instructions for specific diagram content.
 

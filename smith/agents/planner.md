@@ -85,6 +85,7 @@ When describing architectural changes, component interactions, or data flows in 
 
 - **Use Mermaid** for diagrams where relationships or flows are complex enough that prose alone would be hard to follow. Examples: before/after architecture comparisons, multi-component interaction sequences, dependency graphs.
 - **Use plain-text** (indented lists, inline notation) for simple structures: single-file changes, linear call chains, or small component inventories.
+- When a Mermaid diagram shows how participants interact over time, prefer a sequence diagram over a flowchart.
 
 Mermaid blocks use fenced code blocks with the `mermaid` language identifier:
 
