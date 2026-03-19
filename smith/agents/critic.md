@@ -5,7 +5,7 @@ description: >-
   annotations that challenge assumptions, surface gaps, and identify risks.
   Use after a plan exists at <output_directory>/plans/GOAL.md to stress-test it before
   implementation.
-model: sonnet
+model: inherit
 permissionMode: acceptEdits
 background: false
 ---
