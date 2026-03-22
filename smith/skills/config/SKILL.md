@@ -44,6 +44,10 @@ output_directory: docs/
 # Automatically critique and revise plans after initial generation.
 # Default: false
 plan_auto_critique: false
+
+# Run git history analysis after research.
+# Default: true
+research_history: true
 ```
 
 All fields are optional. An empty file or a file with only some fields is valid.
@@ -54,6 +58,7 @@ All fields are optional. An empty file or a file with only some fields is valid.
 |-------|------|---------|-------------|
 | `output_directory` | string | `docs/` | Base directory where Smith writes documents. Research files go to `<output_directory>/research/`, plans to `<output_directory>/plans/`, and reports to `<output_directory>/reports/`. |
 | `plan_auto_critique` | boolean | `false` | When `true`, the `/plan` command automatically runs one round of critique (Critic agent) and revision (Planner agent) after producing the initial plan. |
+| `research_history` | boolean | `true` | When `true`, the `/research` command runs the Historian agent after the Researcher to append git history analysis. Set to `false` to skip the history phase. |
 
 The schema is intentionally open. Users may add additional keys as needed; agents should read what they recognize and ignore the rest.
 

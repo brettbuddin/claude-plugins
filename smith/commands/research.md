@@ -26,6 +26,8 @@ Dispatch the Researcher agent to produce a research report, then run git history
 
 ### Phase 2: History
 
+Skip this phase if the `research_history` configuration option is `false`.
+
 4. Read the research file produced in Phase 1. Extract the key file and directory paths from the **Key Components** and **Architecture** sections.
 5. Use the Task tool with `subagent_type: "Historian"` and `run_in_background: false`.
 6. Prompt the agent with:
